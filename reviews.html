@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Reviews</title>
+  <style>
+    body {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .comments-container {
+      flex: 1;
+      max-height: 100vh;
+      overflow-y: auto;
+      padding: 20px;
+      border-right: 1px solid #ccc;
+    } 
+
+
+    .comments-container h1 {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .comment {
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .comment .username {
+      font-weight: bold;
+    }
+
+    .comment .stars {
+      color: #ffae42;
+    }
+
+    .comment .title {
+      font-weight: bold;
+    }
+
+    .comment .meta {
+      color: gray;
+      font-size: 0.9em;
+    }
+
+    .comment .content {
+      margin-top: 10px;
+    }
+
+    .comment-footer {
+        display: flex;
+        justify-content: space-between;
+        color: grey;
+        font-size: 0.9em;
+    }
+    .comment-footer a {
+        text-decoration: none;
+        color: grey;
+        margin-left: 10px;
+    }
+    .comment-footer a:hover {
+        text-decoration: underline;
+    }
+
+    .input-container {
+      flex: 0.5;
+      padding: 20px;
+    }
+
+    .input-container h2 {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+
+    .input-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .input-container select,
+    .input-container textarea,
+    .input-container button {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 1em;
+    }
+
+    .input-container button {
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+    }
+
+    .input-container button:hover {
+      background-color: #0056b3;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .buttons button {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Left Column: Comments Section -->
+  <div class="comments-container">
+    <!-- <h1>Top Reviews</h1> -->
+    <div class="comment">
+      <div class="username">Bakeugf</div>
+      <div class="stars">★★★★☆</div>
+      <div class="title">Pretty Much Perfect.</div>
+      <div class="meta">Reviewed in the United States on October 8, 2024 | Verified Purchase</div>
+      <div class="content">
+        "I noticed today that when I covered my Coneic with a book, it started spinning, almost like it was trying to shake off the weight. It makes me laugh every time—so dramatic for something so small." 
+        <br><br/>
+      </div>
+        <div class="comment-footer">
+            <span>5 people found this helpful</span>
+            <span>
+                Helpful
+                <a href="#">Report</a>
+            </span>
+        </div>
+    </div>
+    <!-- Add more comments here -->
+  </div>
+
+  <!-- Right Column: Input Section -->
+  <div class="input-container">
+    <h2>Write a Review</h2>
+    <label for="stars">Stars:</label>
+    <select id="stars">
+      <option value="1">1/5</option>
+      <option value="2">2/5</option>
+      <option value="3">3/5</option>
+      <option value="4">4/5</option>
+      <option value="5">5/5</option>
+    </select>
+
+    <label for="new-comment">Comment:</label>
+    <textarea id="new-comment" rows="5" placeholder="Type your comment here..."></textarea>
+
+    <div class="buttons">
+      <button id="submit">Post</button>
+      <button id="back">Back</button>
+    </div>
+  </div>
+
+  <script>
+    const submitButton = document.getElementById('submit');
+    const backButton = document.getElementById('back');
+    const commentsContainer = document.querySelector('.comments-container');
+
+    submitButton.addEventListener('click', () => {
+      const stars = document.getElementById('stars').value;
+      const commentText = document.getElementById('new-comment').value;
+
+      if (commentText.trim() === '') {
+        alert('Please enter a comment.');
+        return;
+      }
+
+      const newComment = document.createElement('div');
+      newComment.classList.add('comment');
+
+      newComment.innerHTML = `
+        <div class="username">Anonymous</div>
+        <div class="stars">${'★'.repeat(stars)}${'☆'.repeat(5 - stars)}</div>
+        <div class="meta">Just now | Verified Purchase</div>
+        <div class="content">${commentText}</div>
+      `;
+
+      commentsContainer.prepend(newComment);
+
+      document.getElementById('new-comment').value = '';
+      document.getElementById('stars').value = '1';
+    });
+
+    backButton.addEventListener('click', () => {
+      window.history.back();
+    });
+  </script>
+</body>
+</html>
